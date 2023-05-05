@@ -52,7 +52,8 @@ Github link: https://github.com/MAZJ124/Task-Manager
 ```
 
 10. `8083` in the above APIs should be replaced by the server port defined in `application.properties`
-11. For the sake of convenience, both `USER` and `ADMIN` role are authorized to access all APIs, but all access will be denied without a log in 
+11. For the sake of convenience, I assume both `USER` and `ADMIN` role are authorized to access all APIs, but all access will be denied without a log in
+    (realistically speaking, a user using a task manager should be able to perform all CRUD operations to tasks, thus I assume it this way)
 
 **PS**
 I was unable to install Docker on my local machine, so I was not able to test the correctness of my Dockerfile:(
