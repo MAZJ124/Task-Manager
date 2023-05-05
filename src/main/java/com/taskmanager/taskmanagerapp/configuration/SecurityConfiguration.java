@@ -30,9 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
+        http.httpBasic()
+                .and().authorizeRequests()
                 .antMatchers("/task-manager/tasks/**").hasAnyRole("ADMIN", "USER")
                 .and().formLogin();
+        http.cors().disable().csrf().disable();
     }
 
 
