@@ -20,11 +20,17 @@ public class TaskController {
         return ResponseHandler.generateResponse("success", HttpStatus.OK, taskService.getAllTasks());
     }
 
+    // potential error: wrong input type
     @PostMapping("/tasks")
     public ResponseEntity<Object> createTask(@RequestBody Task task) {
-        return ResponseHandler.generateResponse("success", HttpStatus.OK, taskService.createTask(task));
+        try {
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, taskService.createTask(task));
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.toString(), HttpStatus.BAD_GATEWAY, null);
+        }
     }
 
+    // potential error: non existent input id
     @GetMapping("/tasks/{id}")
     public ResponseEntity<Object> getTaskById(@PathVariable Long id) {
         try {
@@ -34,16 +40,18 @@ public class TaskController {
         }
     }
 
+    // potential error: non existent input id
     @PutMapping("/tasks/{id}")
     public ResponseEntity<Object> updateTask(@PathVariable Long id, @RequestBody Task task) {
         try {
             task.setId(id);
-            return ResponseHandler.generateResponse("success", HttpStatus.OK, taskService.updateTask(task));
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, taskService.updateTask(id, task));
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.toString(), HttpStatus.BAD_GATEWAY, null);
         }
     }
 
+    // potential error: non existent input id
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Object> deleteTask(@PathVariable Long id) {
         try {
